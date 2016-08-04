@@ -1,4 +1,4 @@
-int numBalls = 400;
+int numBalls = 400;//泡の数
 float spring = 0.05;
 float gravity = 0.0;
 float friction = -0.9;
@@ -11,10 +11,11 @@ void setup() {
   size(1280, 720);
   //smooth(8);
   img = loadImage("back.jpg");
+  //泡の作成
   for (int i = 0; i < numBalls; i++) {
-    if(i<300)balls[i] = new Ball(random(width-100), random(height*2.5), random(10, 20), i, balls);
+    if(i<300)balls[i] = new Ball(random(width-100), random(height*2.5), random(10, 20), i, balls);//小さい泡の大きさを変えるときはrandom(10,20)の部分を変える
     else{
-      balls[i] = new Ball(random(width-100), random(height*2.5), random(20, 70), i, balls);
+      balls[i] = new Ball(random(width-100), random(height*2.5), random(20, 70), i, balls);//大きい泡の大きさを変えるときはrandom(20,70)の部分を変える
     }
   }
   noStroke();
@@ -28,7 +29,7 @@ void draw() {
   
   for (Ball ball : balls) {
     ball.collide();
-    ball.move();
+    ball.move();//泡の動きの設定
     ball.display();  
   }
   counter++;
@@ -74,12 +75,12 @@ class Ball {
   }
   
   void move() {
-    dir.x = sin(PI*counter/random(-50,50));
-    dir.y = -sin(PI*counter/200);
+    dir.x = sin(PI*counter/random(-50,50));//横の振れる速さ
+    dir.y = -sin(PI*counter/200);//縦の振れる速さ
     vy += random(-0.1,0.1);
     vx+= random(-0.1,0.1);
-    x += vx + dir.x*random(1,3);
-    y += vy + dir.y*15;
+    x += vx + dir.x*random(1,3);//横の振れ幅
+    y += vy + dir.y*15;//縦の振れ幅
     if (x + diameter/2 > width+20) {
       x = width - diameter/2+20;
       vx *= friction; 
